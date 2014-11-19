@@ -4,19 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.spring.platform</groupId>
-        <artifactId>platform-bom</artifactId>
-        <version>1.0.2.RELEASE</version>
-    </parent>
-
     <groupId>pl.com.sages.spring.io</groupId>
-    <artifactId>spring-io-lab</artifactId>
+    <artifactId>lab03</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>lab03</module>
+        <module>date</module>
+        <module>cowsay</module>
     </modules>
 
 </project>
