@@ -56,6 +56,18 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Test.groovy</include>
+                            <include>**/*Spec.java</include>
+                            <include>**/*Spec.groovy</include>
+                        </includes>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
