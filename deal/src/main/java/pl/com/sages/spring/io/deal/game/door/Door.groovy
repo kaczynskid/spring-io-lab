@@ -1,27 +1,19 @@
 package pl.com.sages.spring.io.deal.game.door
 
+import pl.com.sages.spring.io.deal.data.BasePersistable
 import pl.com.sages.spring.io.deal.game.InvalidAction
 
-class Door {
+import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 
-    static enum Status {
-        CLOSED, OPENED, SELECTED
-    }
+@Entity
+class Door extends BasePersistable<Long> {
 
-    static enum Content {
-        LOOT, EMPTY, UNKNOWN
-    }
-
-    static Door withNothing() {
-        return new Door(Content.EMPTY)
-    }
-
-    static Door withLoot() {
-        return new Door(Content.LOOT)
-    }
-
+    @Enumerated(EnumType.STRING)
     Status status
 
+    @Enumerated(EnumType.STRING)
     Content content
 
     Door() {
@@ -52,5 +44,13 @@ class Door {
             throw new InvalidAction(String.format("Cannot open %s doors!", status))
         }
         this.status = Status.OPENED
+    }
+
+    static enum Status {
+        CLOSED, OPENED, SELECTED
+    }
+
+    static enum Content {
+        LOOT, EMPTY, UNKNOWN
     }
 }

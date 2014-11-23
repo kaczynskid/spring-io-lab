@@ -1,11 +1,8 @@
 package pl.com.sages.spring.io.deal.game
 
-import groovy.transform.TypeChecked;
-import org.springframework.stereotype.Component;
-
-import pl.com.sages.spring.io.deal.data.InMemoryRepository;
+import groovy.transform.TypeChecked
+import org.springframework.data.repository.PagingAndSortingRepository
 
 @TypeChecked
-@Component
-class GameRepository extends InMemoryRepository<Game> {
+interface GameRepository extends PagingAndSortingRepository<Game, Long> {
 }

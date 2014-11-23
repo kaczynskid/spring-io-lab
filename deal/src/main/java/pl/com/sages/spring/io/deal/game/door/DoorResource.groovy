@@ -3,6 +3,8 @@ package pl.com.sages.spring.io.deal.game.door
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.hateoas.Resource
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT
 @TypeChecked
 @Validated
 @RestController
-@RequestMapping("/games/{gameId}/doors")
+@RequestMapping("/games/{game}/doors")
 class DoorResource {
 
     private final GameService service
@@ -30,18 +32,20 @@ class DoorResource {
         this.service = service
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     @RequestMapping(value = "/{doorIdx}", method = GET)
-    Resource<Door> read(@NotNull @PathVariable Long gameId,
+    Resource<Door> read(@NotNull @PathVariable Game game,
                         @NotNull @PathVariable Integer doorIdx) {
-        Game game = service.findOne(gameId);
         return toResource(game, doorIdx)
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @RequestMapping(value = "/{doorIdx}", method = PUT)
-    void update(@NotNull @PathVariable Long gameId,
+    void update(@NotNull @PathVariable Game game,
                 @NotNull @PathVariable Integer doorIdx,
                 @NotNull @RequestBody Door door) {
-        service.findOne(gameId).takeAction(doorIdx, door.status);
+        game.takeAction(doorIdx, door.status)
+        service.save(game);
     }
     
     static Resource<Door> toResource(Game game, Integer doorIdx) {

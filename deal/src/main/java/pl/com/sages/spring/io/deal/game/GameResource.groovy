@@ -6,6 +6,8 @@ import org.springframework.hateoas.Resource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -31,9 +33,10 @@ class GameResource {
         this.service = service
     }
 
-    @RequestMapping(method = POST)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @RequestMapping(value = "", method = POST)
     ResponseEntity<Void> create() {
-        Game game = service.startNewGame()
+        Game game = service.create()
         return new ResponseEntity<Void>(
             new HttpHeaders(
                 location: linkTo(GameResource).slash(game).toUri()
@@ -41,9 +44,9 @@ class GameResource {
             HttpStatus.CREATED)
     }
 
-    @RequestMapping(value = "/{id}", method = GET)
-    Resource<Game> read(@NotNull @PathVariable Long id) {
-        Game game = service.findOne(id)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @RequestMapping(value = "/{game}", method = GET)
+    Resource<Game> read(@NotNull @PathVariable Game game) {
         return toResource(game)
     }
 
