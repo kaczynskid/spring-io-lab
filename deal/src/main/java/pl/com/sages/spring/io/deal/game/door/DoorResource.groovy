@@ -14,6 +14,8 @@ import pl.com.sages.spring.io.deal.game.GameService
 import javax.validation.constraints.NotNull
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo
+import static org.springframework.web.bind.annotation.RequestMethod.GET
+import static org.springframework.web.bind.annotation.RequestMethod.PUT
 
 @TypeChecked
 @Validated
@@ -28,14 +30,14 @@ class DoorResource {
         this.service = service
     }
 
-    @RequestMapping(value = "/{doorIdx}")
+    @RequestMapping(value = "/{doorIdx}", method = GET)
     Resource<Door> read(@NotNull @PathVariable Long gameId,
                         @NotNull @PathVariable Integer doorIdx) {
         Game game = service.findOne(gameId);
         return toResource(game, doorIdx)
     }
 
-    @RequestMapping(value = "/{doorIdx}")
+    @RequestMapping(value = "/{doorIdx}", method = PUT)
     void update(@NotNull @PathVariable Long gameId,
                 @NotNull @PathVariable Integer doorIdx,
                 @NotNull @RequestBody Door door) {

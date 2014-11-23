@@ -50,7 +50,7 @@ class GameResource {
     static Resource<Game> toResource(Game game) {
         Resource<Game> resource = new Resource<>(game)
         resource.add(linkTo(GameResource).slash(game).withSelfRel());
-        0..<game.doors.size().each { int idx ->
+        (0..<game.doors.size()).each { int idx ->
             resource.add(linkTo(DoorResource, game.id).slash(idx).withRel("door"));
         }
         return resource;
