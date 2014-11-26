@@ -23,7 +23,12 @@
     - all of it on [heroku](https://devcenter.heroku.com/articles/getting-started-with-java)  
 
 ## Testowanie
- - Elementy TDD & BDD
+ - Elementy TDD
+    - code rot => fear of change => big clean up => suite of tests
+    - write no production code except to pass a failing test
+    - write only enough of a test to demonstrate failure
+    - write only enough production code to pass the test     
+    - [test, code refactor](http://blog.gdinwiddie.com/2012/12/26/tdd-hat/)
  - [Testowanie jednostkowe](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#unit-testing)
  - [Testowanie integracyjne](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#integration-testing)
  - [Testowanie zasobów Web'owych](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#spring-mvc-test-framework)
@@ -32,8 +37,9 @@
  - [Teach a Dog to REST](https://blog.apigee.com/detail/restful_api_design)
  - Zasoby i ich reprezentacja
  - Punkt wejścia i inne adresy
- - [Designing REST-ful API using Spring](https://www.parleys.com/play/529e1742e4b0e619540cc3e6)
-    - [Alt](http://spring.io/blog/2014/11/24/springone2gx-2014-replay-creating-rest-ful-hypermedia-based-micro-services-with-spring-boot)
+ - Designing REST-ful API using Spring
+    - [Devoxx 2013](https://www.parleys.com/play/529e1742e4b0e619540cc3e6)
+    - [SpringOne 2014](http://spring.io/blog/2014/11/24/springone2gx-2014-replay-creating-rest-ful-hypermedia-based-micro-services-with-spring-boot)
  - Metody i ich parametry
  - Modelowanie relacji
  - [Spring Hateoas](https://github.com/spring-projects/spring-hateoas/blob/master/readme.md)
@@ -48,7 +54,7 @@
  - [Odbieranie plików](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc-multipart)
 
 ## Spring Data
- - [Definiowanie interfejsów `Repositor`y](http://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.definition)     
+ - [Definiowanie interfejsów `Repository`](http://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.definition)     
  - [Tworzenie metod zapytań](http://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.query-methods.details)
  - [Dodawanie własnych implementacji dla wybranych metod](http://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.custom-implementations)
  - [Specyfikacje](http://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#specifications)
@@ -72,7 +78,7 @@
  - [Tracing](http://docs.spring.io/spring-boot/docs/1.1.9.RELEASE/reference/htmlsingle/#production-ready-tracing)
 
 ## Spring Security
- - Logowanie przez formularz i HTTP Basic
+ - Logowanie przez HTTP Basic
  - Zabezpieczanie adresów URL
  - Podłączanie bazy użytkowników i uprawnień
  - Zabezpieczanie metod

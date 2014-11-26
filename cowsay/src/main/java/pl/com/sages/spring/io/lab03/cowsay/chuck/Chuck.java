@@ -15,8 +15,12 @@ public class Chuck {
     }
 
     public String joke() {
-        return rest.getForObject("http://api.icndb.com/jokes/random", ChuckResponse.class)
-                .getValue().getJoke();
+        try {
+            return rest.getForObject("http://api.icndb.com/jokes/random", ChuckResponse.class)
+                    .getValue().getJoke();
+        } catch (Exception e) {
+            return "Chuck is ill. No jokes today.";
+        }
     }
 
 }

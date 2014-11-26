@@ -1,5 +1,6 @@
 package pl.com.sages.spring.io.deal
 
+import groovy.transform.TypeChecked
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.cache.CacheManager
@@ -13,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.data.web.config.EnableSpringDataWebSupport
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
+@TypeChecked
 @Configuration
 @EnableAutoConfiguration
 @EnableJpaRepositories
@@ -27,7 +29,7 @@ class DealApp {
     }
 
     @Bean
-    public CacheManager cacheManager() {
+    static CacheManager cacheManager() {
         return new SimpleCacheManager(caches: [new ConcurrentMapCache('games')]);
     }
 }
