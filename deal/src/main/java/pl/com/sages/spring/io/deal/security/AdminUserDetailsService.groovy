@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
@@ -26,14 +27,15 @@ class AdminUserDetailsService implements UserDetailsService {
 
     private void initUsers() {
         users.put('admin', new User('admin', passwordEncoder.encode('admin'), [
-            new SimpleGrantedAuthority("ADMIN")
+            new SimpleGrantedAuthority("ROLE_ADMIN")
         ]))
     }
 
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (users.containsKey(username)) {
-            return users.get(username)
+            User user = users.get(username)
+            return new User(user.username, user.password, user.authorities);
         }
         throw new UsernameNotFoundException("Invalid credentials!")
     }

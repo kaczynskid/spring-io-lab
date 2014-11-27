@@ -2,7 +2,11 @@ package pl.com.sages.spring.io.deal.game
 
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import pl.com.sages.spring.io.deal.game.door.Door
 
 @TypeChecked
@@ -20,10 +24,12 @@ class GameService {
         this.repository = repository
     }
 
-    Game findOne(Long id) {
-        return repository.findOne(id)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    Page<Game> search(Pageable pageRequest) {
+        return repository.findAll(pageRequest)
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Game create() {
         return repository.save(new Game(
             status: Game.Status.AWAITING_PRIMARY_SELECTION,
@@ -31,8 +37,11 @@ class GameService {
         ))
     }
 
-    Game save(Game game) {
-        return repository.save(game)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Game changeGateState(Long gameId, Integer gateIdx, Door gate) {
+        Game game = repository.findOne(gameId);
+        game.takeAction(gateIdx, gate.getStatus());
+        repository.save(game);
     }
 
     private List<Door> newDoors() {
@@ -44,5 +53,4 @@ class GameService {
         }
         return doors
     }
-
 }

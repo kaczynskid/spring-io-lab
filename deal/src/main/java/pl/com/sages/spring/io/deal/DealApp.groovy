@@ -2,7 +2,11 @@ package pl.com.sages.spring.io.deal
 
 import groovy.transform.TypeChecked
 import org.springframework.boot.SpringApplication
+import org.springframework.boot.actuate.autoconfigure.ManagementSecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.cache.concurrent.ConcurrentMapCache
@@ -16,11 +20,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @TypeChecked
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = [
+    SecurityAutoConfiguration,
+    SpringBootWebSecurityConfiguration,
+    ManagementSecurityAutoConfiguration,
+    FallbackWebSecurityAutoConfiguration
+])
 @EnableJpaRepositories
 @EnableSpringDataWebSupport
-@EnableTransactionManagement(proxyTargetClass = true)
-//@EnableCaching(proxyTargetClass = false)
+@EnableTransactionManagement//(proxyTargetClass = true)
+@EnableCaching // (proxyTargetClass = false)
 @ComponentScan(basePackageClasses = DealApp.class)
 class DealApp {
 

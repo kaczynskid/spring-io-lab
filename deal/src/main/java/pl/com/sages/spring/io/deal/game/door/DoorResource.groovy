@@ -32,25 +32,22 @@ class DoorResource {
         this.service = service
     }
 
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     @RequestMapping(value = "/{doorIdx}", method = GET)
     Resource<Door> read(@NotNull @PathVariable Game game,
                         @NotNull @PathVariable Integer doorIdx) {
         return toResource(game, doorIdx)
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @RequestMapping(value = "/{doorIdx}", method = PUT)
     void update(@NotNull @PathVariable Game game,
                 @NotNull @PathVariable Integer doorIdx,
                 @NotNull @RequestBody Door door) {
-        game.takeAction(doorIdx, door.status)
-        service.save(game);
+        service.changeGateState(game.id, doorIdx, door);
     }
     
     static Resource<Door> toResource(Game game, Integer doorIdx) {
         Door door = game.getDoor(doorIdx)
-        Resource<Door> resource = new Resource<>(door);
+        Resource<Door> resource = new Resource<Door>(door);
         resource.add(linkTo(DoorResource, game.id).slash(door).withSelfRel());
         return resource;
     }
