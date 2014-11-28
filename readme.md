@@ -78,6 +78,8 @@
  - [Tracing](http://docs.spring.io/spring-boot/docs/1.1.9.RELEASE/reference/htmlsingle/#production-ready-tracing)
 
 ## Spring Security
+ - [@EnableWebMvcSecurity](http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#mvc)
+    i [@AuthenticationPrincipal](http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#mvc-authentication-principal)
  - Logowanie przez HTTP Basic
  - Zabezpieczanie adresów URL
  - Podłączanie bazy użytkowników i uprawnień
